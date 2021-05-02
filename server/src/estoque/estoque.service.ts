@@ -22,17 +22,19 @@ export class EstoqueService {
     atualizarEstoque: AtualizarEstoqueDto,
   ): Promise<Estoque> {
     const estoque = await this.findById(id);
-    const estoqueToSave = this.estoqueRepository.create({
+    console.log(estoque)
+    const estoqueToSave = {
       ...estoque,
       ...atualizarEstoque,
-    });
+    };
+    console.log(estoqueToSave)
     return this.estoqueRepository.save(estoqueToSave);
   }
 
   async buscar(buscarEstoqueDto: BuscarEstoqueDto): Promise<Estoque[]> {
     const query = { excluido: false };
     if (buscarEstoqueDto.nome) {
-      query['nome'] = ILike(buscarEstoqueDto.nome);
+      query['nome'] = ILike(`%${buscarEstoqueDto.nome}%`);
     }
     if (buscarEstoqueDto.quantidadeDe && buscarEstoqueDto.quantidadeAte) {
       query['quantidade'] = Between(
@@ -41,7 +43,7 @@ export class EstoqueService {
       );
     }
     if (buscarEstoqueDto.valorDe || buscarEstoqueDto.valorAte) {
-      query['valvalorUnitario'] = Between(
+      query['valorUnitario'] = Between(
         buscarEstoqueDto.valorDe,
         buscarEstoqueDto.valorAte,
       );

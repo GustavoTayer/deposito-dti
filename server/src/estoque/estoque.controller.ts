@@ -25,6 +25,11 @@ export class EstoqueController {
     return this.estoqueService.buscar(buscarEstoqueDto);
   }
 
+  @Get(':id')
+  buscarPorId(@Param('id') id: number): Promise<Estoque> {
+    return this.estoqueService.findById(id);
+  }
+
   @Post()
   criar(@Body() criarDto: CriarEstoqueDto): Promise<Estoque> {
     return this.estoqueService.criar(criarDto);
