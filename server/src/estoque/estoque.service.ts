@@ -22,12 +22,10 @@ export class EstoqueService {
     atualizarEstoque: AtualizarEstoqueDto,
   ): Promise<Estoque> {
     const estoque = await this.findById(id);
-    console.log(estoque)
     const estoqueToSave = {
       ...estoque,
       ...atualizarEstoque,
     };
-    console.log(estoqueToSave)
     return this.estoqueRepository.save(estoqueToSave);
   }
 
