@@ -110,7 +110,6 @@ describe('EstoqueController', () => {
       mockRepository.findOne.mockReturnValue(estoque);
       const updatedEstoque = await controller.atualizar(estoque.id, estoque);
       expect(updatedEstoque).toMatchObject(estoque);
-      expect(mockRepository.create).toHaveBeenCalledTimes(1);
       expect(mockRepository.save).toHaveBeenCalledTimes(1);
       expect(mockRepository.findOne).toHaveBeenCalledTimes(1);
     });
